@@ -13,7 +13,7 @@ def sum_list(input_list: List[float]) -> float:
     Returns:
         float: return to user
     """
-    sum = 0
+    sum = 0.0
     for value in input_list:
         sum += value
     return sum
