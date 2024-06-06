@@ -2,7 +2,7 @@
 
 """A module to safely retrieve a value from a dictionary.
 
-This module provides a function to retrieve a value from a dictionary 
+This module provides a function to retrieve a value from a dictionary
 using a specified key. If the key does not exist, a default value is returned.
 
 """
@@ -11,7 +11,9 @@ from typing import Any, Union, TypeVar, Mapping
 
 T = TypeVar('T')
 
-def safely_get_value(dct: Mapping, key: Any, default: Union[T, None] = None) -> Union[Any, T]:
+
+def safely_get_value(dct: Mapping, key: Any,
+                     default: Union[T, None] = None) -> Union[Any, T]:
     """Safely retrieve a value from a dictionary.
 
     Args:
