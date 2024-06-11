@@ -4,12 +4,12 @@
 Module to demonstrate an asynchronous generator that yields random float values
 """
 
-from typing import AsyncGenerator
+from typing import Generator
 import asyncio
 import random
 
 
-async def async_generator() -> AsyncGenerator[float, None]:
+async def async_generator() -> Generator[float, None]:
     """
     An asynchronous generator that yields random float values between 0 and 1.
 
