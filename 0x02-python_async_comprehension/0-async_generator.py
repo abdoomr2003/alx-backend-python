@@ -9,7 +9,7 @@ import asyncio
 import random
 
 
-async def async_generator() -> Generator[float, None]:
+async def async_generator() -> Generator[float, None, None]:
     """
     An asynchronous generator that yields random float values between 0 and 1.
 
