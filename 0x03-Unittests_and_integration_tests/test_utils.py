@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """First Task"""
-from utils import access_nested_map
+from utils import access_nested_map, get_json
 from typing import Mapping, Sequence, Any
-from unittest import main, TestCase
+from unittest import main, TestCase, mock
 from parameterized import parameterized
 
 
@@ -33,6 +33,21 @@ class TestAccessNestedMap(TestCase):
             That access_nested_map(nested_map, path) returns the expected value
         """
         self.assertEqual(access_nested_map(nested_map, path), expected)
+
+    @parameterized.expand([
+        ({}, ("a",)),
+        ({"a": 1}, ("a", "b"))
+    ])
+    def test_access_nested_map_exception(self, nested_map: Mapping,
+                                         path: Sequence) -> None:
+        """_summary_
+
+        Args:
+            nested_map (Mapping): _description_
+            path (Sequence): _description_
+        """
+        with self.assertRaises(KeyError):
+            access_nested_map(nested_map, path)
 
 
 if __name__ == "__main__":
