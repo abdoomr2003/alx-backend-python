@@ -74,8 +74,6 @@ class TestGetJson(TestCase):
         url_get.return_value = response
 
         result = get_json(test_url)
-
-        # url_get.assert_called_once_with(test_url)
         self.assertEqual(result, test_payload)
 
 
@@ -98,7 +96,7 @@ class TestMemoize(TestCase):
         decorated with `memoize` to cache its result. The test verifies that
         the memoization works as expected by asserting that:
 
-        1. The result of `a_property` is cached and the same on subsequent call
+        1. The result of `a_property` is cached and the same on subsequent calls.
         2. The result of `a_property` is equal to the expected value `42`.
 
         Returns:
@@ -111,12 +109,16 @@ class TestMemoize(TestCase):
             @memoize
             def a_property(self):
                 return self.a_method()
-
         instance = TestClass()
-        result_1 = instance.a_property
-        result_2 = instance.a_property
+
+        result_1 = instance.a_property()
+        result_2 = instance.a_property()
         self.assertEqual(result_1, result_2)
         self.assertEqual(result_1, 42)
+
+        mock_method = patch.object(TestClass, "a_method", 42)
+        mock_method.assert_called_once()
+
 
 
 if __name__ == "__main__":
