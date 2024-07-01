@@ -96,7 +96,7 @@ class TestMemoize(TestCase):
         decorated with `memoize` to cache its result. The test verifies that
         the memoization works as expected by asserting that:
 
-        1. The result of `a_property` is cached and the same on subsequent calls.
+        1. The result of `a_property` is cached and the same on subsequent call
         2. The result of `a_property` is equal to the expected value `42`.
 
         Returns:
@@ -118,7 +118,6 @@ class TestMemoize(TestCase):
 
         mock_method = patch.object(TestClass, "a_method", 42)
         mock_method.assert_called_once()
-
 
 
 if __name__ == "__main__":
