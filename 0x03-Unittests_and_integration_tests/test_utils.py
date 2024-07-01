@@ -2,8 +2,9 @@
 """First Task"""
 from utils import access_nested_map, get_json, memoize
 from typing import Mapping, Sequence, Any
-from unittest import main, TestCase, mock
+from unittest import main, TestCase
 from parameterized import parameterized
+from unittest.mock import patch, Mock
 
 
 class TestAccessNestedMap(TestCase):
@@ -60,7 +61,7 @@ class TestGetJson(TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
     ])
-    @mock.patch("utils.requests.get")
+    @patch("utils.requests.get")
     def test_get_json(self, test_url: str, test_payload: object, url_get: Any):
         """_summary_
 
@@ -68,7 +69,7 @@ class TestGetJson(TestCase):
             test_url (_type_): _description_
             test_payload (_type_): _description_
         """
-        response = mock.Mock()
+        response = Mock()
         response.json.return_value = test_payload
         url_get.return_value = response
 
@@ -79,15 +80,43 @@ class TestGetJson(TestCase):
 
 
 class TestMemoize(TestCase):
-    def test_memoize(self):
-        class TestClass:
+    """Test cases for the memoize decorator.
 
+    This class contains tests to ensure the memoize decorator works correctly,
+    caching the result of a method call and returning the cached result on
+    subsequent calls.
+
+    Args:
+        TestCase (unittest.TestCase): The base class for all unit test cases.
+    """
+
+    def test_memoize(self):
+        """Test memoization of a property method.
+
+        This test defines a nested class `TestClass` with a method `a_method`
+        and a memoized property `a_property`. The `a_property` method is
+        decorated with `memoize` to cache its result. The test verifies that
+        the memoization works as expected by asserting that:
+
+        1. The result of `a_property` is cached and the same on subsequent call
+        2. The result of `a_property` is equal to the expected value `42`.
+
+        Returns:
+            None
+        """
+        class TestClass:
             def a_method(self):
                 return 42
 
             @memoize
             def a_property(self):
                 return self.a_method()
+
+        instance = TestClass()
+        result_1 = instance.a_property
+        result_2 = instance.a_property
+        self.assertEqual(result_1, result_2)
+        self.assertEqual(result_1, 42)
 
 
 if __name__ == "__main__":
