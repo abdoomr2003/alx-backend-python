@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """First Task"""
 from utils import access_nested_map, get_json, memoize
-from typing import Mapping, Sequence, Any
+from typing import Mapping, Sequence, Any, ClassVar
 from unittest import main, TestCase
 from parameterized import parameterized
 from unittest.mock import patch, Mock
@@ -88,7 +88,7 @@ class TestMemoize(TestCase):
         TestCase (unittest.TestCase): The base class for all unit test cases.
     """
 
-    def test_memoize(self):
+    def test_memoize(self) -> Any:
         """Test memoization of a property method.
 
         This test defines a nested class `TestClass` with a method `a_method`
@@ -103,11 +103,11 @@ class TestMemoize(TestCase):
             None
         """
         class TestClass:
-            def a_method(self):
+            def a_method(self) -> int:
                 return 42
 
             @memoize
-            def a_property(self):
+            def a_property(self) -> int:
                 return self.a_method()
         instance = TestClass()
 
