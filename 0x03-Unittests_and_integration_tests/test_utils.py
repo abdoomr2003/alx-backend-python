@@ -111,13 +111,14 @@ class TestMemoize(TestCase):
                 return self.a_method()
         instance = TestClass()
 
-        result_1 = instance.a_property()
-        result_2 = instance.a_property()
-        self.assertEqual(result_1, result_2)
-        self.assertEqual(result_1, 42)
+        with patch.object(TestClass, 'a_method', return_value=42) as mock_method:
+            result_1 = instance.a_property
+            result_2 = instance.a_property
 
-        mock_method = patch.object(TestClass, "a_method", 42)
-        mock_method.assert_called_once()
+            self.assertEqual(result_1, 42)
+            self.assertEqual(result_2, 42)
+
+            mock_method.assert_called_once()
 
 
 if __name__ == "__main__":
